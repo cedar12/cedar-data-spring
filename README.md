@@ -1,5 +1,5 @@
 # cedar-data-spring
-一个易于使用的 [cedar-data](https://github.com/cedar12/cedar-data-spring.git) 框架的Spring集成组件
+一个易于使用的 [cedar-data](https://github.com/cedar12/cedar-data.git) 框架的Spring集成组件
 
 > 需`cedar-data`版本为`1.1.5`及其以上
 
