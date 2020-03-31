@@ -7,6 +7,7 @@
 
 > `cn.cedar.data.spring.RegistryCedarData`类会扫描`@CedarData`注解的接口类，将其注册到`spring`容器中
 
+
 ### xml配置
 ```xml
 <!-- 连接池 -->
