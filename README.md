@@ -83,12 +83,12 @@ public class TestService{
 ```
 1.1版本
 1. `@Tx`注解新增`method`、`methods`参数
-    - `method`参数指定方法使用事务（正则表达式）
+    - `method`参数指定方法被事务管理（正则表达式）
     - `methods`参数同上（多正则表示）
 2. 新增`@TxTrigger`注解
     - `type`参数指定触发事务回滚类型（可多个类型）（默认值：`TxTriggerType.EXCPETION` 可选值：`TxTriggerType.EXCPETION`|`TxTriggerType.INT`|`TxTriggerType.STRING`）
     - `exception` 类型需有`TxTriggerType.EXCPETION`才生效，参数指定触发事务回滚的异常.class（默认值：Throwable.class(所有异常都回滚)）
-    - `lt` 类型需有`TxTriggerType.INT`才生效，方法返回值需int类型，参数指定方法返回值小于`lt`指定值触发回滚（可和`lt`结合使用）
-    - `gt` 类型需有`TxTriggerType.INT`才生效，方法返回值需int类型，参数指定方法返回值大于`gt`指定值触发回滚（可给`gt`结合使用）
-    - `eq` 类型需有`TxTriggerType.INT`才生效，方法返回值需int类型，参数指定方法返回值等于`eq`指定值触发回滚(`eq`优先级比`lt`，`gt`高)
+    - `lt` 类型需有`TxTriggerType.INT`才生效，方法返回值需int类型，参数指定方法返回值小于`lt`指定值触发回滚（可和`lt`结合使用，默认值：-1，-1不生效）
+    - `gt` 类型需有`TxTriggerType.INT`才生效，方法返回值需int类型，参数指定方法返回值大于`gt`指定值触发回滚（可给`gt`结合使用，默认值：-1，-1不生效）
+    - `eq` 类型需有`TxTriggerType.INT`才生效，方法返回值需int类型，参数指定方法返回值等于`eq`指定值触发回滚(`eq`优先级比`lt`，`gt`高，默认值：-1，-1不生效)
     - `regexp` 类型需有`TxTriggerType.STRING`才生效，方法返回值需String类型，参数指定方法返回值匹配该正常表达式触发回滚
