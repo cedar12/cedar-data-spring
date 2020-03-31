@@ -4,7 +4,7 @@
 
 ## 使用
 
-> cn.cedar.data.spring.RegistryCedarData类会扫描@CedarData注解的借口类，将其注册成spring bean
+> cn.cedar.data.spring.RegistryCedarData类会扫描@CedarData注解的接口类，将其注册成spring bean
 
 ### xml配置
 ```xml
