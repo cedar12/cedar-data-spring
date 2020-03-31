@@ -1,10 +1,11 @@
 # cedar-data-spring
-一个易于使用的cedar-data(1.1.5+)框架的Spring集成组件
+一个易于使用的 [cedar-data](https://github.com/cedar12/cedar-data-spring.git) 框架的Spring集成组件
 
+> 需`cedar-data`版本为`1.1.5`及其以上
 
 ## 使用
 
-> cn.cedar.data.spring.RegistryCedarData类会扫描@CedarData注解的借口类，将其注册成spring bean
+> `cn.cedar.data.spring.RegistryCedarData`类会扫描`@CedarData`注解的接口类，将其注册到`spring`容器中
 
 ### xml配置
 ```xml
@@ -45,6 +46,36 @@ public class AppConfig {
         registryCedarData.setScanPackage("org.example");
         registryCedarData.setDataSource(dataSource());
         return registryCedarData;
+    }
+
+}
+```
+
+### 事务
+> `@Tx`注册成事务管理的类
+```java
+import cn.cedar.data.spring.annotation.Tx;
+import org.springframework.stereotype.Service;
+
+@Tx
+@Service
+public class TestService{
+    
+    @Autowired
+    private TestDao testDao;    
+
+    /*发生异常将回滚*/    
+    public int add(TestBean testBean){
+        return testDao.insert(testBean);
+    }
+    
+    /*判断条件回滚*/
+    public int addLtOne(TestBean){
+        int row=testDao.insert(testBean);
+        if(row<1){
+            throw new RuntimeException();
+        }
+        return row;
     }
 
 }
