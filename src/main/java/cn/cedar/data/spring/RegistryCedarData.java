@@ -55,17 +55,11 @@ public class RegistryCedarData implements ApplicationContextAware, BeanDefinitio
         this.dataSource = dataSource;
     }
 
-    public ApplicationContext getCtx() {
-        return ctx;
-    }
-
     public void setCtx(ApplicationContext ctx) {
         this.ctx = ctx;
     }
 
     private ApplicationContext ctx;
-
-    private BeanDefinitionRegistry beanDef;
 
     @Override
     public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
@@ -73,7 +67,6 @@ public class RegistryCedarData implements ApplicationContextAware, BeanDefinitio
     }
     @Override
     public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry beanDefinitionRegistry) throws BeansException {
-        beanDef=beanDefinitionRegistry;
         InstanceFactory.setJdbcManager(new JdbcManager(dataSource));
         CedarDataScanner sc=new CedarDataScanner(scanPackage);
         List<Class<?>> list=sc.get();

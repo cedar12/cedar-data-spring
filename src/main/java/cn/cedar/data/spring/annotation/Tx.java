@@ -10,8 +10,24 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 /**
  * @author 413338772@qq.com
  */
-@Target({TYPE,METHOD})
+@Target({TYPE})
 @Retention(RUNTIME)
 public @interface Tx {
+    /**
+     * Spring bean 注册名称
+     * @return
+     */
     String value() default "";
+
+    /**
+     * 开启事务的方法名称（正则）
+     * @return
+     */
+    String method() default "";
+
+    /**
+     * 开启事务的多方法名称（多正则）
+     * @return
+     */
+    String[] methods() default {""};
 }

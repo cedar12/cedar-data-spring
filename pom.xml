@@ -3,10 +3,10 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
+    <name>cedar-data-spring</name>
     <groupId>com.github.cedar12</groupId>
     <artifactId>cedar-data-spring</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.1</version>
     <description>一个易于使用的cedar-data(1.1.5+)框架的Spring集成组件</description>
     <url>https://github.com/cedar12/cedar-data-spring</url>
 
@@ -36,7 +36,7 @@
 
     <licenses>
         <license>
-            <name>MIT License</name>
+            <name>Apache-2.0 License</name>
             <url>https://github.com/cedar12/cedar-data-spring/blob/master/LICENSE</url>
             <distribution>repo</distribution>
         </license>
@@ -63,6 +63,7 @@
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
+
 
             <build>
                 <plugins>
@@ -118,6 +119,7 @@
                     </plugin>
                 </plugins>
             </build>
+
             <distributionManagement>
                 <snapshotRepository>
                     <id>ossrh</id>
