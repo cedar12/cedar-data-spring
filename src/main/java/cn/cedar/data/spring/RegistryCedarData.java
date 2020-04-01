@@ -39,7 +39,15 @@ public class RegistryCedarData implements ApplicationContextAware, BeanDefinitio
      */
     private DataSource dataSource;
 
+    /**
+     * import最大层数
+     */
     private int maxLayer=5;
+
+    /**
+     * 是否打印sql
+     */
+    private boolean displaySql=false;
 
     public String getScanPackage() {
         return scanPackage;
@@ -60,6 +68,17 @@ public class RegistryCedarData implements ApplicationContextAware, BeanDefinitio
     public void setMaxLayer(int maxLayer) {
         this.maxLayer = maxLayer;
     }
+    public int getMaxLayer() {
+        return this.maxLayer;
+    }
+
+    public boolean isDisplaySql() {
+        return displaySql;
+    }
+
+    public void setDisplaySql(boolean displaySql) {
+        this.displaySql = displaySql;
+    }
 
     public void setCtx(ApplicationContext ctx) {
         this.ctx = ctx;
@@ -73,12 +92,13 @@ public class RegistryCedarData implements ApplicationContextAware, BeanDefinitio
     }
     @Override
     public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry beanDefinitionRegistry) throws BeansException {
-        InstanceFactory.setMaxLayer(maxLayer);
         InstanceFactory.setJdbcManager(new JdbcManager(dataSource));
         CedarDataScanner sc=new CedarDataScanner(scanPackage);
         List<Class<?>> list=sc.get();
         Class<?>[] cedarDataClass=new Class<?>[list.size()];
         list.toArray(cedarDataClass);
+        InstanceFactory.setMaxLayer(maxLayer);
+        InstanceFactory.setDisplaySql(displaySql);
         InstanceFactory.preload(cedarDataClass);
         for (Class cls : list) {
             CedarData cd= (CedarData) cls.getAnnotation(CedarData.class);

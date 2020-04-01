@@ -106,3 +106,4 @@ public class TestService{
 1.1.6版本对应（对应cedar-data版本）
 1. cglib包依赖替换成spring-core包依赖
 2. 修复`@Tx`指定方法不标注`@TxTrigger`报错问题
+1.1.6.r版本对应（对应cedar-data版本）
