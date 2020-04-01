@@ -39,6 +39,8 @@ public class RegistryCedarData implements ApplicationContextAware, BeanDefinitio
      */
     private DataSource dataSource;
 
+    private int maxLayer=5;
+
     public String getScanPackage() {
         return scanPackage;
     }
@@ -55,6 +57,10 @@ public class RegistryCedarData implements ApplicationContextAware, BeanDefinitio
         this.dataSource = dataSource;
     }
 
+    public void setMaxLayer(int maxLayer) {
+        this.maxLayer = maxLayer;
+    }
+
     public void setCtx(ApplicationContext ctx) {
         this.ctx = ctx;
     }
@@ -67,6 +73,7 @@ public class RegistryCedarData implements ApplicationContextAware, BeanDefinitio
     }
     @Override
     public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry beanDefinitionRegistry) throws BeansException {
+        InstanceFactory.setMaxLayer(maxLayer);
         InstanceFactory.setJdbcManager(new JdbcManager(dataSource));
         CedarDataScanner sc=new CedarDataScanner(scanPackage);
         List<Class<?>> list=sc.get();

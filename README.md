@@ -92,3 +92,7 @@ public class TestService{
     - `gt` 类型需有`TxTriggerType.INT`才生效，方法返回值需int类型，参数指定方法返回值大于`gt`指定值触发回滚（可给`gt`结合使用，默认值：-1，-1不生效）
     - `eq` 类型需有`TxTriggerType.INT`才生效，方法返回值需int类型，参数指定方法返回值等于`eq`指定值触发回滚(`eq`优先级比`lt`，`gt`高，默认值：-1，-1不生效)
     - `regexp` 类型需有`TxTriggerType.STRING`才生效，方法返回值需String类型，参数指定方法返回值匹配该正常表达式触发回滚
+
+1.1.6版本
+1. cglib包依赖替换成spring-core包依赖
+2. 修复`@Tx`指定方法不标注`@TxTrigger`报错问题
