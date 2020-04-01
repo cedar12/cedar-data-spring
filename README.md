@@ -5,6 +5,16 @@
 
 ## 使用
 
+添加maven依赖
+```xml
+<dependency>
+  <groupId>com.github.cedar12</groupId>
+  <artifactId>cedar-data-spring</artifactId>
+  <version>版本号</version>
+</dependency>
+```
+
+
 > `cn.cedar.data.spring.RegistryCedarData`类会扫描`@CedarData`注解的接口类，将其注册到`spring`容器中
 
 
