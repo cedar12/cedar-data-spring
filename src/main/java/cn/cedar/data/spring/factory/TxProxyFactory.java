@@ -9,6 +9,7 @@ import org.springframework.context.ApplicationContextAware;
 /**
  * @author 413338772@qq.com
  */
+@Deprecated
 public class TxProxyFactory<T> implements FactoryBean<T> {
     private Class<T> interfaceClass;
     public Class<T> getInterfaceClass() {

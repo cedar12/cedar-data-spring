@@ -9,6 +9,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 /**
  * @author 413338772@qq.com
  */
+@Deprecated
 @Target({METHOD})
 @Retention(RUNTIME)
 public @interface TxTrigger {

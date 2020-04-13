@@ -26,7 +26,9 @@ import java.util.List;
 /**
  * 注册CedarData
  * @author 413338772@qq.com
+ * @see cn.cedar.data.spring.CedarDataSpringRegister
  */
+@Deprecated
 public class RegistryCedarData implements ApplicationContextAware, BeanDefinitionRegistryPostProcessor {
 
     /**
@@ -103,26 +105,26 @@ public class RegistryCedarData implements ApplicationContextAware, BeanDefinitio
         for (Class cls : list) {
             CedarData cd= (CedarData) cls.getAnnotation(CedarData.class);
             String value=cd.value();
-            if(value.trim().isEmpty()){
-                String simpleName=cls.getSimpleName();
-                value=simpleName.substring(0,1).toLowerCase()+simpleName.substring(1);
-            }
+            getBeanName(cls,value);
             setBean(beanDefinitionRegistry,cls, CedarDataSpringProxyFactory.class,value);
         }
         setBean(beanDefinitionRegistry,JdbcManager.class, JdbcManagerFactory.class,CedarDataSpringConstant.JDBC_MANGER);
 
-        for (String beanDefinitionName : beanDefinitionRegistry.getBeanDefinitionNames()) {
-            Object bean=ctx.getBean(beanDefinitionName);
+        for (String beanDefinitionName : ctx.getBeanDefinitionNames()) {
+            Object bean=null;
+            try {
+                bean = ctx.getBean(beanDefinitionName);
+            }catch(Exception e){}
+            if(bean==null){
+                continue;
+            }
             Class<?> cls=bean.getClass();
             Tx tx=(Tx)cls.getAnnotation(Tx.class);
-            autowired(bean);
+            //autowired(bean);
             if(tx!=null){
                 beanDefinitionRegistry.removeBeanDefinition(beanDefinitionName);
                 String value=tx.value();
-                if(value.trim().isEmpty()){
-                    String simpleName=cls.getSimpleName();
-                    value=simpleName.substring(0,1).toLowerCase()+simpleName.substring(1);
-                }
+                getBeanName(cls,value);
                 setBean(beanDefinitionRegistry,cls, TxProxyFactory.class,value,bean);
             }
         }
@@ -131,6 +133,14 @@ public class RegistryCedarData implements ApplicationContextAware, BeanDefinitio
     @Override
     public void setApplicationContext(ApplicationContext ctx) throws BeansException {
         this.ctx = ctx;
+    }
+
+    private String getBeanName(Class<?> cls,String value){
+        if(value.trim().isEmpty()){
+            String simpleName=cls.getSimpleName();
+            value=simpleName.substring(0,1).toLowerCase()+simpleName.substring(1);
+        }
+        return value;
     }
 
     private void autowired(Object bean){
@@ -151,9 +161,27 @@ public class RegistryCedarData implements ApplicationContextAware, BeanDefinitio
             }
         }
     }
+    private void reference(Class<?> cls,BeanDefinitionBuilder builder){
+        for (String definitionName : ctx.getBeanDefinitionNames()) {
+            try {
+                Field f=cls.getDeclaredField(definitionName);
+                if(f!=null){
+                    builder.addPropertyReference(f.getName(),f.getName().substring(0,1).toUpperCase()+f.getName().substring(1));
+                }
+            } catch (NoSuchFieldException e) {
+            }
+        }
+    }
+
+    public static void main(String[] args) throws NoSuchFieldException {
+        Class<?> cls=RegistryCedarData.class;
+        Field f=cls.getDeclaredField("dataSource");
+        System.out.println(f.getName());
+    }
 
     private void setBean(BeanDefinitionRegistry beanDefinitionRegistry, Class<?> cls, Class<?> factoryCls, String beanName, Object target){
         BeanDefinitionBuilder builder = BeanDefinitionBuilder.genericBeanDefinition(cls);
+        reference(cls,builder);
         GenericBeanDefinition definition = (GenericBeanDefinition) builder.getRawBeanDefinition();
         if(!beanName.equals(CedarDataSpringConstant.JDBC_MANGER)){
             definition.getPropertyValues().add(CedarDataSpringConstant.INTERFACE_CLASS, definition.getBeanClassName());

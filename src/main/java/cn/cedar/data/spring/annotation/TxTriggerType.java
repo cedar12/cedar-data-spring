@@ -3,6 +3,7 @@ package cn.cedar.data.spring.annotation;
 /**
  * 事务触发类型
  */
+@Deprecated
 public enum TxTriggerType {
     /**
      * 异常触发

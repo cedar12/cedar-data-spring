@@ -17,6 +17,65 @@
 
 > `cn.cedar.data.spring.RegistryCedarData`类会扫描`@CedarData`注解的接口类，将其注册到`spring`容器中
 
+## 1.1.7版本及其以上
+### xml配置
+```xml
+<!-- 连接池 -->
+<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+    <property name="url" value="jdbc:mysql://127.0.0.1:3306/test"/>
+    <property name="username" value="root"/>
+    <property name="password" value="**"/>
+</bean>
+<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+    <!-- 连接池 -->
+    <property name="dataSource" ref="dataSource"/>
+</bean>
+
+
+<!-- 注册CedarData -->
+<bean id="registryCedarData" class="cn.cedar.data.spring.CedarDataSpringRegister">
+    <!-- 扫描CedarData基础类 -->
+    <property name="scanPackage" value="org.example"/>
+    <!-- 连接池 -->
+    <property name="jdbcTemplate" ref="jdbcTemplate"/>
+</bean>
+```
+
+### 注解配置
+```java
+@Configuration
+@ComponentScan("org.example")
+public class AppConfig {
+
+    @Bean
+    public DataSource dataSource(){
+        DruidDataSource dataSource=new DruidDataSource();
+        dataSource.setUsername("root");
+        dataSource.setPassword("**");
+        dataSource.setUrl("jdbc:mysql://127.0.0.1:3306/test");
+        return dataSource;
+    }
+
+    @Bean
+    public JdbcTemplate jdbcTemplate(DataSource dataSource){
+        JdbcTemplate jdbcTemplate=new JdbcTemplate(dataSource);
+        return jdbcTemplate;
+    }
+
+
+    @Bean
+    public CedarDataSpringRegister cedarDataSpringRegister(JdbcTemplate jdbcTemplate){
+        CedarDataSpringRegister cedarDataSpringRegister=new CedarDataSpringRegister();
+        cedarDataSpringRegister.setScanPackage("org.example");
+        cedarDataSpringRegister.setJdbcTemplate(jdbcTemplate);
+        return cedarDataSpringRegister;
+    }
+
+}
+```
+
+
+## 1.1.6.r版本及其以下
 
 ### xml配置
 ```xml
@@ -107,3 +166,9 @@ public class TestService{
 1. cglib包依赖替换成spring-core包依赖
 2. 修复`@Tx`指定方法不标注`@TxTrigger`报错问题
 1.1.6.r版本对应（对应cedar-data版本）
+1.1.7版本
+1. 弃用`RegistryCedarDta`、`@Tx`、`@TxTrigger`
+2. 新增``CedarDataSpringRegister`、`JdbcTemplatelManager`
+1.1.8版本
+    - 修改扫描类
+    - `JdbcTemplatelManager`更名`JdbcTemplateManager`

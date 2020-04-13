@@ -18,6 +18,7 @@ import java.util.jar.JarFile;
  * 扫描CedarData类
  * @author 413338772@qq.com
  **/
+@Deprecated
 public class CedarDataScanner {
 
     private static Log log= LogFactory.getLog(CedarDataScanner.class);

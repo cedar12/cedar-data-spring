@@ -7,6 +7,7 @@ import org.springframework.beans.factory.FactoryBean;
 /**
  * @author 413338772@qq.com
  */
+@Deprecated
 public class JdbcManagerFactory implements FactoryBean<JdbcManager> {
 
     @Override

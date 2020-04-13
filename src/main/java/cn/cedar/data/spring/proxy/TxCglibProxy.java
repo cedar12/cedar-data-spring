@@ -18,6 +18,7 @@ import java.util.regex.Pattern;
 /**
  * @author 413338772@qq.com
  */
+@Deprecated
 public class TxCglibProxy implements MethodInterceptor {
 
     private Object target;
