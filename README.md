@@ -121,7 +121,10 @@ public class AppConfig {
 }
 ```
 
-### 事务
+### 1.1.7版本及其以上开启事务
+> 参考[Spring开启事务管理](https://docs.spring.io/spring/docs/4.3.26.RELEASE/spring-framework-reference/htmlsingle/#transaction-declarative)
+
+### 1.1.6.r版本及其以下开启事务
 > `@Tx`注册成事务管理的类
 ```java
 import cn.cedar.data.spring.annotation.Tx;

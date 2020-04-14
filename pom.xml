@@ -7,7 +7,7 @@
     <groupId>com.github.cedar12</groupId>
     <artifactId>cedar-data-spring</artifactId>
     <version>1.2.0</version>
-    <description>一个易于使用的cedar-data(1.2.0+)框架的Spring集成组件</description>
+    <description>一个易于使用的cedar-data(1.2.0)框架的Spring集成组件</description>
     <url>https://github.com/cedar12/cedar-data-spring</url>
 
     <properties>
