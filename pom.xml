@@ -36,8 +36,8 @@
 
     <licenses>
         <license>
-            <name>Apache-2.0 License</name>
-            <url>https://github.com/cedar12/cedar-data-spring/blob/master/LICENSE</url>
+            <name>Apache License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0</url>
             <distribution>repo</distribution>
         </license>
     </licenses>
@@ -51,7 +51,7 @@
     <developers>
         <developer>
             <name>cedar12</name>
-            <email>413338772@qq.com</email>
+            <email>cedar12.zxd@qq.com</email>
             <organization>https://github.com/cedar12</organization>
             <organizationUrl>https://github.com/cedar12</organizationUrl>
         </developer>
